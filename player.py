@@ -3,6 +3,7 @@ class Player:
         self.active = True
         self.value = 3
         self.pos = pos
+        self.wasChanged = 0
 
     def getState(self):
         return self.active
@@ -13,13 +14,21 @@ class Player:
     def getPos(self):
         return self.pos
 
+    def getWasChanged(self):
+        curVal = self.wasChanged
+        self.wasChanged = 0
+        return curVal
+
     def changeValue(self, change):
         global numActive
         new = self.value + change
         if(new <= 0):
             self.active = False
-            numActive -= 1
-        elif self.value == 0 & new > 0:
+            self.wasChanged = -1
+        elif self.value == 0 and new > 0:
             self.active = True
-            numActive += 1
+            self.wasChanged = 1
+        else:
+            self.wasChanged = 0
         self.value = new
+
