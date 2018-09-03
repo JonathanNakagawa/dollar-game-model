@@ -46,5 +46,7 @@ class Game:
         while self.numActive != 1:
             self.playTurn(pos)
             pos = getRightPos(pos, self.plyrCount)
-
-
+            self.turnCount += 1
+        for i in range(0, self.plyrCount):
+            if self.table[i].getState():
+                self.winnerPos = i
